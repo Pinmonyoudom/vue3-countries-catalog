@@ -1,8 +1,18 @@
 <template>
-  <div>
-    <h2>List Countries</h2>
-    <div>
-      <div v-for="country in paginatedCountries" :key="country">
+  <v-container fluid class="text-center">
+    <h1>Countries Catalog Implementation</h1>
+    <v-text-field
+      pattern="[a-zA-Z\s&\d]"
+      v-model="search"
+      append-icon="mdi-magnify"
+      label="Search Country Name"
+      hide-details
+      dense
+      single-line
+      outlined
+    ></v-text-field>
+    <v-row justify="center">
+      <v-col v-for="country in paginatedCountries" :key="country" cols="12" sm="6" md="4" lg="3">
         <div><img :src="country.flags.png" class="" /></div>
         <div>{{ country.name.official }}</div>
         <div>{{ country.cca2 }}</div>
@@ -10,14 +20,14 @@
         <div>{{ country.name.nativeName }}</div>
         <div>{{ country.altSpellings.join(", ") }}</div>
         <div>{{ country.idd.root + country.idd.suffixes }}</div>
-      </div>
-    </div>
+      </v-col>
+    </v-row>
     <v-pagination
       v-model="currentPage"
       :length="pageCount"
       @input="changePage"
     ></v-pagination>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -29,6 +39,7 @@ export default {
       countries: [],
       currentPage: 1,
       perPage: 25,
+      search: "",
     };
   },
   computed: {
@@ -61,5 +72,5 @@ export default {
 </script>
 
 <style>
-/* Add your styles here */
+
 </style>
