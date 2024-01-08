@@ -14,14 +14,14 @@
       class="mb-8"
     ></v-text-field>
     <v-row justify="center">
-      <v-col v-for="country in paginatedCountries" :key="country" cols="12" sm="6" md="4" lg="3">
-        <div><img :src="country.flags.png" class="" /></div>
-        <div>{{ country.name.official }}</div>
-        <div>{{ country.cca2 }}</div>
-        <div>{{ country.cca3 }}</div>
-        <div>{{ getFirstNativeName(country.name.nativeName) }}</div>
-        <div>{{ country.altSpellings.join(", ") }}</div>
-        <div>{{ country.idd.root + country.idd.suffixes }}</div>
+      <v-col v-for="(item, index) in listCountries" :key="index">
+        <div><img :src="item.flags.png" class="" /></div>
+        <div>{{ item.name.official }}</div>
+        <div>{{ item.cca2 }}</div>
+        <div>{{ item.cca3 }}</div>
+        <div>{{ getFirstNativeName(item.name.nativeName) }}</div>
+        <div>{{ item.altSpellings.join(", ") }}</div>
+        <div>{{ item.idd.root + item.idd.suffixes }}</div>
       </v-col>
     </v-row>
     <v-pagination
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    paginatedCountries() {
+    listCountries() {
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
       return this.countries.slice(start, end);
@@ -70,8 +70,12 @@ export default {
       this.currentPage = page;
     },
     getFirstNativeName(nativeName) {
-      const firstKey = Object.keys(nativeName)[0];
-      return nativeName[firstKey].official;
+      if (nativeName) {
+        const firstKey = Object.keys(nativeName)[0];
+        if (firstKey && nativeName[firstKey] && nativeName[firstKey].official) {
+          return nativeName[firstKey].official;
+        }
+      }
     },
   },
 };
