@@ -16,7 +16,11 @@
     <v-row justify="center">
       <v-col v-for="(item, index) in listCountries" :key="index">
         <div @click="openModal(item)">
-          <img :src="item.flags.png" class="clickable" style="width: 230px; height: 100px;" />
+          <img
+            :src="item.flags.png"
+            class="clickable"
+            style="width: 230px; height: 100px"
+          />
         </div>
         <div @click="openModal(item)" class="clickable">
           {{ item.name.official }}
@@ -27,11 +31,14 @@
       v-model="currentPage"
       :length="pageCount"
       @input="changePage"
+      class="mt-8"
     ></v-pagination>
     <v-dialog persistent v-model="detailDialog" max-width="140vh">
       <v-card outlined>
         <v-toolbar light flat class="grey lighten-2 font-weight-medium">
-          <v-toolbar-title class="title">Countries Name : Territory of Christmas Island</v-toolbar-title>
+          <v-toolbar-title class="title"
+            >Country Name : {{ selectedCountry.countryName }}</v-toolbar-title
+          >
           <v-spacer></v-spacer>
           <v-btn icon dark color="black" @click="closeModal">
             <v-icon>mdi-close</v-icon>
@@ -42,31 +49,10 @@
           <v-row>
             <v-col cols="3">
               <div class="rounded" style="border: 1px solid #d1d1d1">
-                <!-- <v-img
-                  v-if="viewedItem.picture"
-                  height="250px"
-                  max-width="250px"
-                  class="rounded"
-                  :src="
-                    'https://kv-pilltech.s3.ap-east-1.amazonaws.com/' +
-                      viewedItem.picture
-                  "
-                >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-1"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-                <v-img v-else :src="url + 'products/Default/PillTech-Logo.png'">
-                </v-img> -->
+                <img
+                  :src="selectedCountry.imageFlag"
+                  style="width: 215px; height: 210px"
+                />
               </div>
             </v-col>
             <v-col cols="9">
@@ -75,39 +61,31 @@
                   2 character Country Code:
                 </v-col>
                 <v-col class="font-weight-bold">
-                  <!-- {{ viewedItem.name }} -->ss
+                  {{ selectedCountry.twoCharacterCountryCode }}
                 </v-col>
               </v-row>
               <v-row class="black--text subtitle-1">
-                <v-col cols="4" class="pt-0">
-                  3 character Country Code:
-                </v-col>
+                <v-col cols="4" class="pt-0"> 3 character Country Code: </v-col>
                 <v-col class="pt-0 font-weight-bold">
-                  <!-- {{ viewedItem.upc }} -->ssd
+                  {{ selectedCountry.threeCharacterCountryCode }}
                 </v-col>
               </v-row>
               <v-row class="black--text subtitle-1">
-                <v-col cols="4" class="pt-0">
-                  Native Country Name:
-                </v-col>
-                <v-col class="pt-0 font-weight-bold">
-                  <!-- {{ viewedItem.categoryName }} -->ddd
+                <v-col cols="4" class="pt-0"> Native Country Name: </v-col>
+                <v-col class="pt-0 font-weight-bold"> 
+                  {{ selectedCountry.nativeCountryName }}
                 </v-col>
               </v-row>
               <v-row class="black--text subtitle-1">
-                <v-col cols="4" class="pt-0">
-                  Alternative Country Name:
-                </v-col>
+                <v-col cols="4" class="pt-0"> Alternative Country Name: </v-col>
                 <v-col class="pt-0 font-weight-bold">
-                  <!-- {{ viewedItem.categoryName }} -->ddd
+                  {{ selectedCountry.alternativeCountryName }}
                 </v-col>
               </v-row>
               <v-row class="black--text subtitle-1">
-                <v-col cols="4" class="pt-0">
-                  Country Calling Codes:
-                </v-col>
-                <v-col class="pt-0 font-weight-bold">
-                  <!-- {{ viewedItem.categoryName }} -->ddd
+                <v-col cols="4" class="pt-0"> Country Calling Codes: </v-col>
+                <v-col class="pt-0 font-weight-bold"> 
+                  {{ selectedCountry.countryCallingCodes }}
                 </v-col>
               </v-row>
             </v-col>
@@ -173,8 +151,15 @@ export default {
       this.currentPage = page;
     },
     openModal(item) {
-      console.log(item, "ITEM");
-      this.selectedCountry = item;
+      this.selectedCountry = {
+        countryName: item.name.official,
+        imageFlag: item.flags.png,
+        twoCharacterCountryCode: item.cca2,
+        threeCharacterCountryCode: item.cca3,
+        nativeCountryName: this.getFirstNativeName(item.name.nativeName),
+        alternativeCountryName: item.altSpellings.join(", "),
+        countryCallingCodes: item.idd.root + item.idd.suffixes
+      };
       this.detailDialog = true;
     },
     closeModal() {
