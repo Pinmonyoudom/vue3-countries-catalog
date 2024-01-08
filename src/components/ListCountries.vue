@@ -9,7 +9,6 @@
       hide-details
       dense
       single-line
-      clearable
       outlined
       class="mb-8"
     ></v-text-field>
@@ -125,6 +124,11 @@ export default {
     },
     pageCount() {
       return Math.ceil(this.filteredCountries.length / this.perPage);
+    },
+  },
+  watch: {
+    search() {
+      this.currentPage = 1;
     },
   },
   mounted() {
