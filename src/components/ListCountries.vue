@@ -93,21 +93,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <!-- <v-dialog v-model="dialog" max-width="600px" persistent>
-      <v-card>
-        <v-card-title>{{ selectedCountry.name.official }}</v-card-title>
-        <v-card-text>
-          <div>{{ selectedCountry.cca2 }}</div>
-          <div>{{ selectedCountry.cca3 }}</div>
-          <div>{{ getFirstNativeName(selectedCountry.name.nativeName) }}</div>
-          <div>{{ selectedCountry.altSpellings.join(", ") }}</div>
-          <div>{{ selectedCountry.idd.root + selectedCountry.idd.suffixes }}</div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn @click="closeModal">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
   </v-container>
 </template>
 
