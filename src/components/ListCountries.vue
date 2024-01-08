@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="text-center">
-    <h1>Countries Catalog Implementation</h1>
+  <v-container fluid class="text-center pt-4">
+    <h1 class="mb-4">Countries Catalog Implementation</h1>
     <v-text-field
       pattern="[a-zA-Z\s&\d]"
       v-model="search"
@@ -9,7 +9,9 @@
       hide-details
       dense
       single-line
+      clearable
       outlined
+      class="mb-8"
     ></v-text-field>
     <v-row justify="center">
       <v-col v-for="country in paginatedCountries" :key="country" cols="12" sm="6" md="4" lg="3">
@@ -17,7 +19,7 @@
         <div>{{ country.name.official }}</div>
         <div>{{ country.cca2 }}</div>
         <div>{{ country.cca3 }}</div>
-        <div>{{ country.name.nativeName }}</div>
+        <div>{{ getFirstNativeName(country.name.nativeName) }}</div>
         <div>{{ country.altSpellings.join(", ") }}</div>
         <div>{{ country.idd.root + country.idd.suffixes }}</div>
       </v-col>
@@ -66,6 +68,10 @@ export default {
     },
     changePage(page) {
       this.currentPage = page;
+    },
+    getFirstNativeName(nativeName) {
+      const firstKey = Object.keys(nativeName)[0];
+      return nativeName[firstKey].official;
     },
   },
 };
