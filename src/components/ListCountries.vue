@@ -5,7 +5,7 @@
       pattern="[a-zA-Z\s&\d]"
       v-model="search"
       append-icon="mdi-magnify"
-      label="Search Country Name"
+      label="Search by Country Name"
       hide-details
       dense
       single-line
@@ -111,13 +111,20 @@ export default {
     };
   },
   computed: {
+    filteredCountries() {
+      const searchRegex = new RegExp(this.search, "i");
+      return this.countries.filter(
+        (country) =>
+          searchRegex.test(country.name.official)
+      );
+    },
     listCountries() {
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
-      return this.countries.slice(start, end);
+      return this.filteredCountries.slice(start, end);
     },
     pageCount() {
-      return Math.ceil(this.countries.length / this.perPage);
+      return Math.ceil(this.filteredCountries.length / this.perPage);
     },
   },
   mounted() {
