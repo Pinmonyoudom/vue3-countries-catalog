@@ -158,7 +158,6 @@ export default {
     },
   },
   mounted() {
-    this.currentPage = parseInt(localStorage.getItem("currentPage")) || 1;
     this.fetchData();
   },
   methods: {
@@ -172,7 +171,6 @@ export default {
     },
     changePage(page) {
       this.currentPage = page;
-      localStorage.setItem("currentPage", page);
     },
     openModal(item) {
       console.log(item, "ITEM");
