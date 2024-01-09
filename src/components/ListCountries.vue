@@ -12,6 +12,32 @@
       outlined
       class="mb-8"
     ></v-text-field>
+    <v-btn
+      color="cyan"
+      class="ma-2 mb-8 white--text"
+      @click="sortCountryName('asc')"
+    >
+        Sorting by Country Name (Asc)
+      <v-icon
+        right
+        dark
+      >
+        mdi-sort-ascending
+      </v-icon>
+    </v-btn>
+    <v-btn
+      color="cyan"
+      class="ma-2 mb-8 white--text"
+      @click="sortCountryName('desc')"
+    >
+        Sorting by Country Name (Desc)
+      <v-icon
+        right
+        dark
+      >
+        mdi-sort-descending
+      </v-icon>
+    </v-btn>
     <v-row justify="center">
       <v-col v-for="(item, index) in listCountries" :key="index">
         <div @click="openModal(item)">
@@ -56,9 +82,7 @@
             </v-col>
             <v-col cols="9">
               <v-row class="black--text subtitle-1">
-                <v-col cols="4" :style="{ 'white-space': 'nowrap' }">
-                  2 character Country Code:
-                </v-col>
+                <v-col cols="4"> 2 character Country Code: </v-col>                               
                 <v-col class="font-weight-bold">
                   {{ selectedCountry.twoCharacterCountryCode }}
                 </v-col>
@@ -107,6 +131,7 @@ export default {
       search: "",
       detailDialog: false,
       selectedCountry: {},
+      sortDirection: "asc"
     };
   },
   computed: {
@@ -168,6 +193,22 @@ export default {
           return nativeName[firstKey].official;
         }
       }
+    },
+    sortCountryName(order) {
+      if (order === this.sortDirection) {
+        this.sortDirection = order === "asc" ? "desc" : "asc";
+      } else {
+        this.sortDirection = order;
+      }
+      this.countries.sort((a, b) => {
+        const nameA = a.name.official.toUpperCase();
+        const nameB = b.name.official.toUpperCase();
+        if (this.sortDirection === "asc") {
+          return nameA.localeCompare(nameB);
+        } else {
+          return nameB.localeCompare(nameA);
+        }
+      });
     },
   },
 };
