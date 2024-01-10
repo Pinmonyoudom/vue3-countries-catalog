@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ListCountries from './components/ListCountries';
+import ListCountries from '@/components/ListCountries.vue';
 
 export default {
   name: 'App',

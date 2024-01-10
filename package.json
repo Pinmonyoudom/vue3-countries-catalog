@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "vite",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "predeploy": "npm run build",
@@ -13,12 +13,13 @@
   "dependencies": {
     "axios": "^1.6.5",
     "core-js": "^3.8.3",
-    "vue": "^2.6.14",
+    "vue": "^2.7.0",
     "vuetify": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@vitejs/plugin-vue2": "^2.3.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
@@ -27,8 +28,10 @@
     "gh-pages": "^6.1.1",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.0.11",
     "vue-cli-plugin-vuetify": "~2.5.8",
-    "vue-template-compiler": "^2.6.14",
+    "vue-template-compiler": "^2.7.16",
     "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {

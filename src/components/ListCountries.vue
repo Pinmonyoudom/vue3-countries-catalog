@@ -58,7 +58,7 @@
       @input="changePage"
       class="mt-8"
     ></v-pagination>
-    <v-dialog persistent v-model="detailDialog" max-width="140vh">
+    <v-dialog  v-model="detailDialog" max-width="140vh">
       <v-card outlined>
         <v-toolbar light flat class="grey lighten-2 font-weight-medium">
           <v-toolbar-title class="title"
