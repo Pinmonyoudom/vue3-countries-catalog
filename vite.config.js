@@ -4,6 +4,7 @@ import Components from 'unplugin-vue-components/vite'
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
 
 export default {
+    base: '/vue3-countries-catalog/',
     plugins: [
         vue(),
         Components({
