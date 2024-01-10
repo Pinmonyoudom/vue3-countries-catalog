@@ -1,6 +1,6 @@
 {
-  "homepage": "https://Pinmonyoudom.github.io/countries-catalog-implementation",
-  "name": "countries-catalog-implementation",
+  "homepage": "https://Pinmonyoudom.github.io/vue3-countries-catalog",
+  "name": "vue3-countries-catalog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
